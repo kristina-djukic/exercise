@@ -40,7 +40,7 @@ function App() {
 
       <div className="w-3/4 h-full bg-gray-100 p-8">
         {selectedUser && (
-          <table>
+          <table class= "min-w-full bg-white shadow-md rounded-lg">
             <tbody>
               <tr>
                 <td>ID</td>
