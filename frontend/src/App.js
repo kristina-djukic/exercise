@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("https://dummyjson.com/users?limit=20&select=firstName,age,email")
+      .get("https://dummyjson.com/users?limit=20&select=firstName,age,email,id,lastName,gender,phone")
       .then((response) => {
         setUsers(response.data.users);
       })
@@ -21,7 +21,7 @@ function App() {
   return (
     
     <div className="flex h-screen w-full">
-      
+
       <div className="w-1/4 h-full bg-gray-800 text-white p-4 overflow-y-auto">
         <h2 className="text-2xl font-bold mb-4">Users</h2>
         <ul>
