@@ -31,7 +31,7 @@ function App() {
               onClick={() => selectedUserSet(user)}
               className="mb-2 cursor-pointer hover:bg-gray-600 p-2 rounded"
             >
-              {user.firstName}
+              {[user.firstName, user.lastName].join(" ")}
             </li>
           ))}
         </ul>
