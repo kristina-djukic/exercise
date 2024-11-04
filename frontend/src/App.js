@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("https://dummyjson.com/users?limit=20&select=firstName,age,email,id,lastName,gender,phone")
+      .get("https://dummyjson.com/users?limit=20")
       .then((response) => {
         setUsers(response.data.users);
       })
@@ -22,14 +22,14 @@ function App() {
     
     <div className="flex h-screen w-full">
 
-      <div className="w-1/4 h-full bg-gray-800 text-white p-4 overflow-y-auto">
-        <h2 className="text-2xl font-bold mb-4">Users</h2>
-        <ul>
+      <div className="w-1/4 h-full bg-syyclopsBlue text-white p-4 overflow-y-auto">
+        <h2 className="text-2xl font-bold mb-4 border-b text-syyclopsOrange font-wixDisplay">Users</h2>
+        <ul className="font-wixText">
           {users.map((user) => (
             <li
               key={user.id}
               onClick={() => selectedUserSet(user)}
-              className="mb-2 cursor-pointer hover:bg-gray-600 p-2 rounded"
+              className="mb-2 cursor-pointer p-2 hover:text-syyclopsOrange"
             >
               {[user.firstName, user.lastName].join(" ")}
             </li>
@@ -38,41 +38,42 @@ function App() {
       </div>
 
 
-      <div className="w-3/4 h-full bg-gray-100 p-8">
-        {selectedUser && (
+      <div className="w-3/4 h-full bg-white p-8">
+      <h1 className="text-3xl font-wizDisplay font-bold mb-4 text-syyclopsBlue">User Details</h1>
+        {selectedUser ? (
           <table class= "min-w-full bg-white shadow-md rounded-lg">
-            <tbody>
+            <tbody className="font-wixText">
               <tr>
-                <td>ID</td>
-                <td>{selectedUser.id}</td>
+                <td className="border px-4 py-2 font-semibold">ID</td>
+                <td className="border px-4 py-2">{selectedUser.id}</td>
               </tr>
               <tr>
-                <td>First Name</td>
-                <td>{selectedUser.firstName}</td>
+                <td className="border px-4 py-2 font-semibold">First Name</td>
+                <td className="border px-4 py-2">{selectedUser.firstName}</td>
               </tr>
               <tr>
-                <td>Last Name</td>
-                <td>{selectedUser.lastName}</td>
+                <td className="border px-4 py-2 font-semibold">Last Name</td>
+                <td className="border px-4 py-2">{selectedUser.lastName}</td>
               </tr>
               <tr>
-                <td>Age</td>
-                <td>{selectedUser.age}</td>
+                <td className="border px-4 py-2 font-semibold">Age</td>
+                <td className="border px-4 py-2">{selectedUser.age}</td>
               </tr>
               <tr>
-                <td>Gender</td>
-                <td>{selectedUser.gender}</td>
+                <td className="border px-4 py-2 font-semibold">Gender</td>
+                <td className="border px-4 py-2">{selectedUser.gender}</td>
               </tr>
               <tr>
-                <td>Email</td>
-                <td>{selectedUser.email}</td>
+                <td className="border px-4 py-2 font-semibold">Email</td>
+                <td className="border px-4 py-2">{selectedUser.email}</td>
               </tr>
               <tr>
-                <td>Phone</td>
-                <td>{selectedUser.phone}</td>
+                <td className="border px-4 py-2 font-semibold">Phone</td>
+                <td className="border px-4 py-2">{selectedUser.phone}</td>
               </tr>
             </tbody>
           </table>
-        ) }
+        ) : (<p className="font-wixText text-syyclopsBlue">Select a user from the sidebar to view details</p>)}
       </div>
     </div>
   );
