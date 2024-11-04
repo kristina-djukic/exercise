@@ -7,7 +7,10 @@ module.exports = {
     extend: {
       colors: {
         syyclopsBlue: '#090f2d',
-        syyclopsOrange: 'rgb(220 90 39)'
+        syyclopsOrange: 'rgb(220 90 39)',
+        syyclopsButton: '#EA6020',
+        syyclopsHoverButton: '#e16a3a'
+        
       },
       fontFamily:{
         wixDisplay: ['"Wix Madefor Display"', 'sans-serif'],
