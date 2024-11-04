@@ -35,18 +35,25 @@ function App() {
 
 
   const formSubmit = (e) => {
-    e.preventDefault(); // Prevent form from reloading the page
+    e.preventDefault();
 
-    if (!selectedUser) return; // Exit if no user is selected
+    if (!selectedUser) return;
 
     axios
       .patch(`https://dummyjson.com/users/${selectedUser.id}`, formData)
       .then((response) => {
         const updatedUser = response.data;
-        selectedUserSet(updatedUser); // Update selected user with the response data
-        setFormData(updatedUser); // Reset formData with updated data
-        setEditMode(false); // Exit edit mode
+        selectedUserSet(updatedUser);
+        setFormData(updatedUser);
+        setEditMode(false);
+
+        setUsers((prevUsers) =>
+          prevUsers.map((user) =>
+            user.id === updatedUser.id ? updatedUser : user
+          )
+        );
       })
+
       .catch((error) => {
         console.error("Error updating user:", error);
       });
