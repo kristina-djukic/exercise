@@ -44,10 +44,10 @@ function App() {
     e.preventDefault();
 
     if (!selectedUser) return;
-
+    console.log("FormData being sent:", formData);
     axios
       /*.patch(`https://dummyjson.com/users/${selectedUser.id}`, formData)*/
-      .patch(`http://127.0.0.1:8000/users/${selectedUser.id}`, formData) // connetced to python endpoints
+      .put(`http://127.0.0.1:8000/users/${selectedUser.id}`, formData) // connetced to python endpoints
       .then((response) => {
         const updatedUser = response.data;
         selectedUserSet(updatedUser);
