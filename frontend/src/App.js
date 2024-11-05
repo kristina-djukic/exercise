@@ -25,6 +25,11 @@ function App() {
     setEditMode(true);
   };
 
+  const cancelButton = () => {
+    setEditMode(false);
+    setFormData({});
+  };
+
   const inputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -84,83 +89,96 @@ function App() {
         {selectedUser ? (
           <>
             {editMode ? (
-              <form className="space-y-4" onSubmit={formSubmit}>
-                <div>
-                  <label className="block font-semibold">ID</label>
-                  <input
-                    type="text"
-                    name="id"
-                    value={formData.id}
-                    readOnly
-                    className="w-full border px-4 py-2"
-                  />
-                </div>
-                <div>
-                  <label className="block font-semibold">First Name</label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName || ""}
-                    onChange={inputChange}
-                    className="w-full border px-4 py-2"
-                  />
-                </div>
-                <div>
-                  <label className="block font-semibold">Last Name</label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName || ""}
-                    onChange={inputChange}
-                    className="w-full border px-4 py-2"
-                  />
-                </div>
-                <div>
-                  <label className="block font-semibold">Age</label>
-                  <input
-                    type="text"
-                    name="age"
-                    value={formData.age || ""}
-                    onChange={inputChange}
-                    className="w-full border px-4 py-2"
-                  />
-                </div>
-                <div>
-                  <label className="block font-semibold">Gender</label>
-                  <input
-                    type="text"
-                    name="gender"
-                    value={formData.gender || ""}
-                    onChange={inputChange}
-                    className="w-full border px-4 py-2"
-                  />
-                </div>
-                <div>
-                  <label className="block font-semibold">Email</label>
-                  <input
-                    type="text"
-                    name="email"
-                    value={formData.email || ""}
-                    onChange={inputChange}
-                    className="w-full border px-4 py-2"
-                  />
-                </div>
-                <div>
-                  <label className="block font-semibold">Phone</label>
-                  <input
-                    type="text"
-                    name="phone"
-                    value={formData.phone || ""}
-                    onChange={inputChange}
-                    className="w-full border px-4 py-2"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="font-wixText mt-4 float-right bg-syyclopsButton text-white px-16 py-2.5 text-lg rounded-xl transition duration-300 ease-in-out transform hover:bg-syyclopsHoverButton hover:scale-105">
-                  Save
-                </button>
-              </form>
+              <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
+                <form className="space-y-4" onSubmit={formSubmit}>
+                  <div>
+                    <label className="block font-semibold">ID</label>
+                    <input
+                      type="text"
+                      name="id"
+                      value={formData.id}
+                      readOnly
+                      className="w-full border px-4 py-2"
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-semibold">First Name</label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName || ""}
+                      onChange={inputChange}
+                      className="w-full border px-4 py-2"
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-semibold">Last Name</label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName || ""}
+                      onChange={inputChange}
+                      className="w-full border px-4 py-2"
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-semibold">Age</label>
+                    <input
+                      type="text"
+                      name="age"
+                      value={formData.age || ""}
+                      onChange={inputChange}
+                      className="w-full border px-4 py-2"
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-semibold">Gender</label>
+                    <input
+                      type="text"
+                      name="gender"
+                      value={formData.gender || ""}
+                      onChange={inputChange}
+                      className="w-full border px-4 py-2"
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-semibold">Email</label>
+                    <input
+                      type="text"
+                      name="email"
+                      value={formData.email || ""}
+                      onChange={inputChange}
+                      className="w-full border px-4 py-2"
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-semibold">Phone</label>
+                    <input
+                      type="text"
+                      name="phone"
+                      value={formData.phone || ""}
+                      onChange={inputChange}
+                      className="w-full border px-4 py-2"
+                    />
+                  </div>
+                  <div className="flex justify-end space-x-4 mt-4">
+                    <button
+                      type="button"
+                      onClick={cancelButton}
+                      className="font-wixText bg-white border-2 border-syyclopsButton text-syyclopsButton flex-1 px-8 py-2 rounded-lg  hover:bg-syyclopsHoverButton hover:text-white">
+
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="font-wixText bg-syyclopsButton text-white flex-1 px-8 py-2 rounded-lg  hover:bg-syyclopsHoverButton"
+                    >
+                      Save
+                    </button>
+                  </div>
+
+                </form>
+              </div>
             ) : (
               <table class="min-w-full bg-white shadow-md rounded-lg">
                 <tbody className="font-wixText">
@@ -195,10 +213,11 @@ function App() {
                 </tbody>
               </table>
             )}
-            <button onClick={editButton} className="font-wixText mt-4 float-right bg-syyclopsButton text-white px-16 py-2.5 text-lg rounded-xl transition duration-300 ease-in-out transform hover:bg-syyclopsHoverButton hover:scale-105">
-              Edit
-            </button>
-
+            {!editMode && (
+              <button onClick={editButton} className="font-wixText mt-4 float-right bg-syyclopsButton text-white px-16 py-2.5 text-lg rounded-xl transition duration-300 ease-in-out transform hover:bg-syyclopsHoverButton hover:scale-105">
+                Edit
+              </button>
+            )}
           </>
 
 
