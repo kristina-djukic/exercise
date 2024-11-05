@@ -174,7 +174,22 @@ function App() {
               )}
             </>
           ) : (
-            <p className="font-wixText text-syyclopsBlue">Select a user from the sidebar to view details</p>
+           
+  <div className="flex space-x-10  h-3/4 mt-10">
+    <div className="bg-tableColor p-10 rounded-lg shadow-md flex-1 flex flex-col justify-between">
+      <p className="font-wixText text-syyclopsBlue text-xl font-semibold pb-20">
+        Select a user from the sidebar to view and edit details.
+      </p>
+      <p className="font-wixText text-syyclopsButton text-xl font-semibold self-start">
+        This is Syyclops test assignment.
+      </p>
+    </div>
+    <div className="bg-syyclopsBlue p-10 rounded-lg shadow-md flex-1 flex items-center justify-center">
+    <img src="logoSyyclopsO.png" alt="LogoO" className="h-15 w-auto" />
+    </div>
+  </div>
+
+
           )}
         </div>
       </div>
