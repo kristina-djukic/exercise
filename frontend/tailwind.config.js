@@ -9,7 +9,8 @@ module.exports = {
         syyclopsBlue: '#090f2d',
         syyclopsOrange: 'rgb(220 90 39)',
         syyclopsButton: '#EA6020',
-        syyclopsHoverButton: '#e16a3a'
+        syyclopsHoverButton: '#e16a3a',
+        tableColor: "#f2f4f8",
         
       },
       fontFamily:{

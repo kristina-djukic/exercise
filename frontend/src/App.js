@@ -10,7 +10,8 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('http://127.0.0.1:8000/users') // connected to the Python endpoints
+      /*.get("https://dummyjson.com/users?limit=20")*/ // for connecting to dummyjson
+      .get('http://127.0.0.1:8000/users') // connected to the python endpoints
       .then((response) => {
         setUsers(response.data.users);
       })
@@ -42,6 +43,7 @@ function App() {
 
     if (!selectedUser) return;
     axios
+      /*.patch(`https://dummyjson.com/users/${selectedUser.id}`, formData)*/ // connection to dummyjson
       .put(`http://127.0.0.1:8000/users/${selectedUser.id}`, formData) // connected to Python endpoints
       .then((response) => {
         const updatedUser = response.data;
@@ -62,128 +64,83 @@ function App() {
 
   return (
     <div className="h-screen w-full flex">
-      
-      {/* Sidebar (Users section) */}
-<div className="w-1/4 bg-syyclopsBlue text-white h-full flex flex-col">
-  
-  {/* Users header - Fixed position */}
-  <div className="sticky top-0 bg-syyclopsBlue z-10 px-5 py-3 pb-3 border-b border-white">
-    <h2 className="text-xl font-semibold  text-syyclopsOrange font-wixDisplay">Users</h2>
-  </div>
 
-  {/* Scrollable user list */}
-  <div className="overflow-y-auto flex-grow bg-syyclopsBlue text-white p-4">
-    <ul className="font-wixText">
-      {users.map((user) => (
-        <li
-          key={user.id}
-          onClick={() => selectedUserSet(user)}
-          className="mb-2 cursor-pointer p-2 hover:text-syyclopsOrange"
-        >
-          {[user.firstName, user.lastName].join(" ")}
-        </li>
-      ))}
-    </ul>
-  </div>
-</div>
+      <div className="w-1/4 bg-syyclopsBlue text-white h-full flex flex-col">
 
-      {/* Main Content Wrapper */}
+        <div className="sticky top-0 bg-syyclopsBlue z-10 px-5 py-3 pb-3 border-b border-white">
+          <h2 className="text-xl font-semibold text-syyclopsOrange font-wixDisplay">Users</h2>
+        </div>
+
+        <div className="overflow-y-auto flex-grow bg-syyclopsBlue text-white p-4">
+          <ul className="font-wixText">
+            {users.map((user) => (
+              <li
+                key={user.id}
+                onClick={() => selectedUserSet(user)}
+                className={`mb-2 cursor-pointer p-2 ${selectedUser?.id === user.id ? 'text-syyclopsOrange' : 'hover:text-syyclopsOrange'}`}
+              >
+                {[user.firstName, user.lastName].join(" ")}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
       <div className="flex flex-col w-3/4 h-screen overflow-hidden">
-        
-        {/* Navbar - Fixed at the top of the main content */}
+
         <div className="bg-syyclopsBlue text-white p-4 flex justify-end items-center">
           <img src="logoSyyclops.png" alt="Logo" className="h-5 w-auto" />
         </div>
 
-        {/* Main Content Section with independent scroll */}
         <div className="bg-white p-8 overflow-y-auto flex-grow">
-          <h1 className="text-3xl font-wizDisplay font-bold mb-4 text-syyclopsBlue">User Details</h1>
+          <h1 className="text-2xl font-wixDisplay font-semibold mb-4 text-syyclopsButton">User Details</h1>
           {selectedUser ? (
             <>
               {editMode ? (
-                <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
-                  <form className="space-y-4" onSubmit={formSubmit}>
-                    <div>
-                      <label className="block font-semibold">ID</label>
-                      <input
-                        type="text"
-                        name="id"
-                        value={formData.id}
-                        readOnly
-                        className="w-full border px-4 py-2"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-semibold">First Name</label>
-                      <input
-                        type="text"
-                        name="firstName"
-                        value={formData.firstName || ""}
-                        onChange={inputChange}
-                        className="w-full border px-4 py-2"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-semibold">Last Name</label>
-                      <input
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName || ""}
-                        onChange={inputChange}
-                        className="w-full border px-4 py-2"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-semibold">Age</label>
-                      <input
-                        type="text"
-                        name="age"
-                        value={formData.age || ""}
-                        onChange={inputChange}
-                        className="w-full border px-4 py-2"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-semibold">Gender</label>
-                      <input
-                        type="text"
-                        name="gender"
-                        value={formData.gender || ""}
-                        onChange={inputChange}
-                        className="w-full border px-4 py-2"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-semibold">Email</label>
-                      <input
-                        type="text"
-                        name="email"
-                        value={formData.email || ""}
-                        onChange={inputChange}
-                        className="w-full border px-4 py-2"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-semibold">Phone</label>
-                      <input
-                        type="text"
-                        name="phone"
-                        value={formData.phone || ""}
-                        onChange={inputChange}
-                        className="w-full border px-4 py-2"
-                      />
-                    </div>
-                    <div className="flex justify-end space-x-4 mt-4">
+                <div>
+                  <form className="space-y-2" onSubmit={formSubmit}>
+                    <table className="min-w-full bg-tableColor shadow-md rounded-xl border-separate border-spacing-0 font-wixText border border-syyclopsBlue text-syyclopsBlue">
+                      <tbody className="font-wixText">
+                        {[
+                          { label: "ID", name: "id" },
+                          { label: "First Name", name: "firstName" },
+                          { label: "Last Name", name: "lastName" },
+                          { label: "Age", name: "age" },
+                          { label: "Gender", name: "gender" },
+                          { label: "Email", name: "email" },
+                          { label: "Phone", name: "phone" },
+                        ].map((row, idx, arr) => (
+                          <tr key={row.name}>
+                            <td className={`px-4 py-2 font-semibold border-r border-syyclopsBlue ${idx !== arr.length - 1 ? 'border-b' : ''}`}>
+                              {row.label}
+                            </td>
+                            <td className={`px-4 py-2 border-syyclopsBlue ${idx !== arr.length - 1 ? 'border-b' : ''}`}>
+                              <input
+                                type="text"
+                                name={row.name}
+                                value={formData[row.name] || ""}
+                                onChange={inputChange}
+                                readOnly={row.name === "id"}
+                                required
+                                className="w-full border-none focus:ring-0 bg-tableColor"
+                              />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+
+                    <div className="flex justify-end space-x-4 mt-4 pt-1">
                       <button
                         type="button"
                         onClick={cancelButton}
-                        className="font-wixText bg-white border-2 border-syyclopsButton text-syyclopsButton flex-1 px-8 py-2 rounded-lg hover:bg-syyclopsHoverButton hover:text-white"
+                        className="font-wixText bg-white border-2 border-syyclopsButton text-syyclopsButton w-40 px-6 py-2.5 rounded-lg hover:bg-syyclopsHoverButton hover:text-white"
                       >
                         Cancel
                       </button>
                       <button
                         type="submit"
-                        className="font-wixText bg-syyclopsButton text-white flex-1 px-8 py-2 rounded-lg hover:bg-syyclopsHoverButton"
+                        className="font-wixText bg-syyclopsButton text-white w-40 px-6 py-2.5 rounded-lg hover:bg-syyclopsHoverButton"
                       >
                         Save
                       </button>
@@ -191,36 +148,22 @@ function App() {
                   </form>
                 </div>
               ) : (
-                <table className="min-w-full bg-white shadow-md rounded-lg">
+                <table className="min-w-full bg-tableColor shadow-md rounded-xl border-separate border-spacing-0 font-wixText border border-syyclopsBlue text-syyclopsBlue">
                   <tbody className="font-wixText">
-                    <tr>
-                      <td className="border px-4 py-2 font-semibold">ID</td>
-                      <td className="border px-4 py-2">{selectedUser.id}</td>
-                    </tr>
-                    <tr>
-                      <td className="border px-4 py-2 font-semibold">First Name</td>
-                      <td className="border px-4 py-2">{selectedUser.firstName}</td>
-                    </tr>
-                    <tr>
-                      <td className="border px-4 py-2 font-semibold">Last Name</td>
-                      <td className="border px-4 py-2">{selectedUser.lastName}</td>
-                    </tr>
-                    <tr>
-                      <td className="border px-4 py-2 font-semibold">Age</td>
-                      <td className="border px-4 py-2">{selectedUser.age}</td>
-                    </tr>
-                    <tr>
-                      <td className="border px-4 py-2 font-semibold">Gender</td>
-                      <td className="border px-4 py-2">{selectedUser.gender}</td>
-                    </tr>
-                    <tr>
-                      <td className="border px-4 py-2 font-semibold">Email</td>
-                      <td className="border px-4 py-2">{selectedUser.email}</td>
-                    </tr>
-                    <tr>
-                      <td className="border px-4 py-2 font-semibold">Phone</td>
-                      <td className="border px-4 py-2">{selectedUser.phone}</td>
-                    </tr>
+                    {[
+                      { label: "ID", value: selectedUser.id },
+                      { label: "First Name", value: selectedUser.firstName },
+                      { label: "Last Name", value: selectedUser.lastName },
+                      { label: "Age", value: selectedUser.age },
+                      { label: "Gender", value: selectedUser.gender },
+                      { label: "Email", value: selectedUser.email },
+                      { label: "Phone", value: selectedUser.phone },
+                    ].map((row, idx, arr) => (
+                      <tr key={idx}>
+                        <td className={`px-4 py-2 font-semibold border-r border-syyclopsBlue ${idx !== arr.length - 1 ? 'border-b' : ''}`}>{row.label}</td>
+                        <td className={`px-4 py-2 border-syyclopsBlue ${idx !== arr.length - 1 ? 'border-b' : ''}`}>{row.value}</td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               )}
