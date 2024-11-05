@@ -11,8 +11,8 @@ function App() {
 
   useEffect(() => {
     axios
-      /*.get("https://dummyjson.com/users?limit=20") for connecting to dummyjson*/
-      .get('http://127.0.0.1:8000/users') //Bonus - connected to the python endpoints
+      .get("https://dummyjson.com/users?limit=20")// for connecting to dummyjson
+      //.get('http://127.0.0.1:8000/users') //Bonus - connected to the python endpoints
       .then((response) => {
         setUsers(response.data.users);
       })
@@ -46,8 +46,8 @@ function App() {
     if (!selectedUser) return;
     console.log("FormData being sent:", formData);
     axios
-      /*.patch(`https://dummyjson.com/users/${selectedUser.id}`, formData)*/
-      .put(`http://127.0.0.1:8000/users/${selectedUser.id}`, formData) // connetced to python endpoints
+      .patch(`https://dummyjson.com/users/${selectedUser.id}`, formData)
+      //.put(`http://127.0.0.1:8000/users/${selectedUser.id}`, formData) // connetced to python endpoints
       .then((response) => {
         const updatedUser = response.data;
         selectedUserSet(updatedUser);
